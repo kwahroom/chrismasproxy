@@ -9,6 +9,8 @@ import (
 
 func main() {
 	http.HandleFunc("/", handleHome)
+	http.HandleFunc("/301", handle301)
+	http.HandleFunc("/302", handle302)
 	http.HandleFunc("/400", handle400)
 	http.HandleFunc("/401", handle401)
 	http.HandleFunc("/402", handle402)
@@ -32,6 +34,8 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 <html><body>
 	<h1> All Codes </h1>
 	<ul>
+		<li><a href="/301">301</a></li>
+		<li><a href="/302">302</a></li>
 		<li><a href="/400">400</a></li>
 		<li><a href="/401">401</a></li>
 		<li><a href="/402">402</a></li>
@@ -45,6 +49,14 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 		<li><a href="/504">504</a></li>
 	</ul>
 </body></html>`)
+}
+
+func handle301(w http.ResponseWriter, r *http.Request) {
+	chrismasify.WriteChrismasResponse(w, nil, 301)
+}
+
+func handle302(w http.ResponseWriter, r *http.Request) {
+	chrismasify.WriteChrismasResponse(w, nil, 302)
 }
 
 func handle400(w http.ResponseWriter, r *http.Request) {

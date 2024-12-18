@@ -46,6 +46,10 @@ func WriteChrismasResponse(newBody io.Writer, oldBody *[]byte, status int) {
 		responseTemplate.Execute(newBody, ResponseData{Image: naughtyList, Message: "401 - Sorry you are not on the list."})
 	} else if status == http.StatusBadRequest {
 		responseTemplate.Execute(newBody, ResponseData{Image: badSanta, Message: "400 - Bad Santa."})
+	} else if status == http.StatusFound {
+		responseTemplate.Execute(newBody, ResponseData{Image: santaPub, Message: "302 - Santa left temporarily to drink at the pub."})
+	} else if status == http.StatusMovedPermanently {
+		responseTemplate.Execute(newBody, ResponseData{Image: santaMoved, Message: "301 - Santa changed addresses."})
 	} else {
 		newBody.Write(*oldBody)
 	}
