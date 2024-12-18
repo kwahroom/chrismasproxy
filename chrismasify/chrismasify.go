@@ -24,7 +24,9 @@ func WriteChrismasResponse(newBody io.Writer, oldBody *[]byte, status int) {
 		panic(err)
 	}
 
-	if status == http.StatusGatewayTimeout {
+	if status == http.StatusInsufficientStorage {
+		responseTemplate.Execute(newBody, ResponseData{Image: lostSanta, Message: "507 - Oh no! Santas storage is overflowing!"})
+	} else if status == http.StatusGatewayTimeout {
 		responseTemplate.Execute(newBody, ResponseData{Image: lostSanta, Message: "504 - Santa got lost and could not find your present on time."})
 	} else if status == http.StatusServiceUnavailable {
 		responseTemplate.Execute(newBody, ResponseData{Image: drunkSanta, Message: "503 - Drunk Santa passed out and cannot deliver your present."})
@@ -34,8 +36,12 @@ func WriteChrismasResponse(newBody io.Writer, oldBody *[]byte, status int) {
 		responseTemplate.Execute(newBody, ResponseData{Image: confusedSanta, Message: "501 - Santa has not yet learned how to do this."})
 	} else if status == http.StatusInternalServerError {
 		responseTemplate.Execute(newBody, ResponseData{Image: crushedSanta, Message: "500 - Oh No! Santa got crushed by the presents!"})
+	} else if status == http.StatusTooManyRequests {
+		responseTemplate.Execute(newBody, ResponseData{Image: teaSanta, Message: "429 - Santa got overwhelmed by all the requests."})
 	} else if status == http.StatusTeapot {
 		responseTemplate.Execute(newBody, ResponseData{Image: teaSanta, Message: "418 - Santa is drinking tea."})
+	} else if status == http.StatusGone {
+		responseTemplate.Execute(newBody, ResponseData{Image: noPresentSanta, Message: "410 - Oh no the reindeer ate the present!"})
 	} else if status == http.StatusNotFound {
 		responseTemplate.Execute(newBody, ResponseData{Image: noPresentSanta, Message: "404 - Oh no Santa lost your present!"})
 	} else if status == http.StatusForbidden {

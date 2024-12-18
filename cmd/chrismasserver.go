@@ -16,12 +16,15 @@ func main() {
 	http.HandleFunc("/402", handle402)
 	http.HandleFunc("/403", handle403)
 	http.HandleFunc("/404", handle404)
+	http.HandleFunc("/410", handle410)
 	http.HandleFunc("/418", handle418)
+	http.HandleFunc("/429", handle429)
 	http.HandleFunc("/500", handle500)
 	http.HandleFunc("/501", handle501)
 	http.HandleFunc("/502", handle502)
 	http.HandleFunc("/503", handle503)
 	http.HandleFunc("/504", handle504)
+	http.HandleFunc("/507", handle507)
 
 	fmt.Println("Starting server on port 2412")
 	if err := http.ListenAndServe(":2412", nil); err != nil {
@@ -41,12 +44,15 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 		<li><a href="/402">402</a></li>
 		<li><a href="/403">403</a></li>
 		<li><a href="/404">404</a></li>
+		<li><a href="/410">410</a></li>
 		<li><a href="/418">418</a></li>
+		<li><a href="/429">429</a></li>
 		<li><a href="/500">500</a></li>
 		<li><a href="/501">501</a></li>
 		<li><a href="/502">502</a></li>
 		<li><a href="/503">503</a></li>
 		<li><a href="/504">504</a></li>
+		<li><a href="/507">507</a></li>
 	</ul>
 </body></html>`)
 }
@@ -79,8 +85,16 @@ func handle404(w http.ResponseWriter, r *http.Request) {
 	chrismasify.WriteChrismasResponse(w, nil, 404)
 }
 
+func handle410(w http.ResponseWriter, r *http.Request) {
+	chrismasify.WriteChrismasResponse(w, nil, 410)
+}
+
 func handle418(w http.ResponseWriter, r *http.Request) {
 	chrismasify.WriteChrismasResponse(w, nil, 418)
+}
+
+func handle429(w http.ResponseWriter, r *http.Request) {
+	chrismasify.WriteChrismasResponse(w, nil, 429)
 }
 
 func handle500(w http.ResponseWriter, r *http.Request) {
@@ -101,4 +115,8 @@ func handle503(w http.ResponseWriter, r *http.Request) {
 
 func handle504(w http.ResponseWriter, r *http.Request) {
 	chrismasify.WriteChrismasResponse(w, nil, 504)
+}
+
+func handle507(w http.ResponseWriter, r *http.Request) {
+	chrismasify.WriteChrismasResponse(w, nil, 507)
 }
